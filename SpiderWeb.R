@@ -1,4 +1,4 @@
-library(fmsb)
+reproducible::Require(fmsb)
 
 # Create data: note in High school for several students
 #set.seed(99)
@@ -34,7 +34,7 @@ data=rbind(rep(100, numObjectives) , rep(0, numObjectives) , data)
 # Plot 2: Same plot with custom features
 colors_border=c( rgb(0.2,0.5,0.5,0.9), rgb(0.8,0.2,0.5,0.9) , rgb(0.7,0.5,0.1,0.9) )
 colors_in=c( rgb(0.2,0.5,0.5,0.4), rgb(0.8,0.2,0.5,0.4) , rgb(0.7,0.5,0.1,0.4) )
-png(filename = "~/Google Drive/McIntire-lab/figures/Tradeoff management values.png", 
+png(filename = "Tradeoff management values.png", 
     width = 800)
 radarchart( data  , axistype=2,  
             #custom polygon
