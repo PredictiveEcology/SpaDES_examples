@@ -1,0 +1,22 @@
+Package: SpaDES_examples
+Type: Package
+Title: Examples
+Description: These are simple examples
+URL:
+    https://github.com/PredictiveEcology/SpaDES_examples
+Date: 2019-11-19
+Version: 0.0.1
+Authors@R: c(
+    person("Eliot J B", "McIntire", email = "eliot.mcintire@canada.ca",
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0001-7146-8135")),
+    person("Alex M", "Chubaty", email = "alex.chubaty@gmail.com",
+    person("Her Majesty the Queen in Right of Canada, as represented by the Minister of Natural Resources Canada",
+    role = "cph")
+    )
+Encoding: UTF-8
+Language: en-CA
+License: GPL-3
+VignetteBuilder: knitr, rmarkdown
+BugReports: https://github.com/PredictiveEcology/SpaDES_examples/issues
+ByteCompile: yes
+

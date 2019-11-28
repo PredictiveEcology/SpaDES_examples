@@ -6,4 +6,4 @@ These are some simple examples that are have been created for demonstration purp
 
   - [Network of modules](https://predictiveecology.github.io/SpaDES_examples/Network/Index.html)
   - [Insect spread example](https://predictiveecology.github.io/SpaDES_examples/SpreadAnimation/Index.html)
-  - [Tradeoff spider web](https://predictiveecology.github.io/SpaDES_examples/Tradeoff management values.png)
+  - [Tradeoff spider web](https://predictiveecology.github.io/SpaDES_examples/Tradeoff%20management%20values.png)
