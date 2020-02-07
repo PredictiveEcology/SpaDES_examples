@@ -26,6 +26,7 @@ ptsOnCirc <- function(x, r = 1) {
 #' Nimble management visualization
 #' @importFrom diagram plotmat
 #' @rdname nimbleManagement
+#' @param ... passed to \code{diagram::plotmat}
 #' @examples 
 #' if (require(animation) && require(quickPlot)) {
 #' dev(width = 11, height = 11)
@@ -38,9 +39,18 @@ ptsOnCirc <- function(x, r = 1) {
 #'             
 #'           })
 #' }
-nimbleManagement <- function(N, allToAll = FALSE, 
+#' 
+#' # Do one level of arrows at a time, to make incremental pngs, say
+#' N <- 7
+#' for (i in 0:N) {
+#'   png(filename = file.path(".", paste0("nimble_level",i,".png")),
+#'       width = 11, height = 11, units = "in", res = 200)
+#'   nimbleManagement(N, cols = "Set2", allToAll = TRUE, levels = i)
+#'   dev.off()
+#' }
+nimbleManagement <- function(N, allToAll = FALSE, levels = N,
                              nams = c("Problem", "Data", "Models", "Analyses", "Forecast", "Assessment", "Decisions"),
-                             cols = "RdYlBu") {
+                             cols = "RdYlBu", ...) {
   if (isTRUE(cols %in% rownames(RColorBrewer::brewer.pal.info)))
     cols <- RColorBrewer::brewer.pal(N, name = cols)
   cols1 <- cols
@@ -63,7 +73,7 @@ nimbleManagement <- function(N, allToAll = FALSE,
   
   b <- ""
   doAllToAll <- isTRUE(allToAll)
-  for (m in ifelse(doAllToAll, 0, 1):N) {
+  for (m in ifelse(doAllToAll, 0, 1):levels) {
     vec <- 1:N
     v1 <- cbind(vec, c(vec[-1], vec[1]))
     M[v1] <- b
@@ -96,15 +106,18 @@ nimbleManagement <- function(N, allToAll = FALSE,
     col[] <- rep(cols1, each = N)
     col <- col[,a2]
     #png(filename = paste0("plot", m, ".png"))
-    pp <- plotmat(M1, pos = (ptsOnCirc(N, r = 0.3) + 0.5)[a2,], 
-                  curve = curves, name = nams, 
-                  box.lwd = 2, box.cex = 1, cex.txt = 0.6, 
-                  arr.lcol = col, arr.col = col, arr.pos = 0.7,
-                  box.size = nchar(nams)/N/10, box.col = cols1[a2],
-                  arr.type = "curved", lwd = 3, box.type = "ellipse",
-                  box.prop = 1/nchar(nams)*2.5, #main = "plotmat", 
-                  arr.len = 0.8,
-                  segment.from = 0.2, segment.to = 0.8)
+    defaults <- list(pos = (ptsOnCirc(N, r = 0.3) + 0.5)[a2,], 
+                     curve = curves, name = nams, 
+                     box.lwd = 2, box.cex = 1, cex.txt = 0.6, 
+                     arr.lcol = col, arr.col = col, arr.pos = 0.7,
+                     box.size = nchar(nams)/N/10, box.col = cols1[a2],
+                     arr.type = "curved", lwd = 3, box.type = "ellipse",
+                     box.prop = 1/nchar(nams)*2.5, #main = "plotmat", 
+                     arr.len = 0.8,
+                     segment.from = 0.2, segment.to = 0.8)
+    dots <- list(...)
+    defaults[names(dots)] <- dots
+    do.call(plotmat, append(list(M1), defaults))
     #dev.off()
   }
 }

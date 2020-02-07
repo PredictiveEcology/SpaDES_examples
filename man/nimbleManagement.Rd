@@ -7,10 +7,15 @@
 nimbleManagement(
   N,
   allToAll = FALSE,
-  nams = c("Problem", "Data", "Models", "Analyses", "Forecast", "Risk Assessment",
+  levels = N,
+  nams = c("Problem", "Data", "Models", "Analyses", "Forecast", "Assessment",
     "Decisions"),
-  cols = "RdYlBu"
+  cols = "RdYlBu",
+  ...
 )
+}
+\arguments{
+\item{...}{passed to \code{diagram::plotmat}}
 }
 \description{
 Nimble management visualization
@@ -20,11 +25,20 @@ if (require(animation) && require(quickPlot)) {
 dev(width = 11, height = 11)
 nimbleManagement(7, cols = "Set2", allToAll = TRUE)
 saveGIF(movie.name = "Nimble Management.gif", 
-        nimbleManagement(7, cols = "Accent", allToAll = TRUE),
+        nimbleManagement(7, cols = "Set2", allToAll = TRUE),
         ani.options = ani.options(
           ani.height = 1200, 
           ani.width = 1200, ani.res = 200), {
             
           })
+}
+
+# Do one level of arrows at a time, to make incremental pngs, say
+N <- 7
+for (i in 0:N) {
+  png(filename = file.path(".", paste0("nimble_level",i,".png")),
+      width = 11, height = 11, units = "in", res = 200)
+  nimbleManagement(N, cols = "Set2", allToAll = TRUE, levels = i)
+  dev.off()
 }
 }
