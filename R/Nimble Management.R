@@ -114,7 +114,6 @@ nimbleManagement <- function(N, allToAll = FALSE, levels = N,
     #cols1 <- RColorBrewer::brewer.pal(N, "RdYlBu")
     cols <- rep(rgb(0.2,0.5,0.5,0.9), N)
     col <- matrix(rep(cols, each = N), ncol = N)
-    N
     col[] <- rep(cols1, each = N)
     col <- col[,a2]
     
