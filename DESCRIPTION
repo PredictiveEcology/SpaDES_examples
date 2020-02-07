@@ -1,22 +1,29 @@
-Package: SpaDES_examples
+Package: SpaDES.examples
 Type: Package
 Title: Examples
-Description: These are simple examples
-URL:
+Description: Some features are still under active development.
+URL: 
     https://github.com/PredictiveEcology/SpaDES_examples
-Date: 2019-11-19
-Version: 0.0.1
+Date: 2020-02-03
+Version: 0.0.0.9005
 Authors@R: c(
     person("Eliot J B", "McIntire", email = "eliot.mcintire@canada.ca",
-    role = c("aut", "cre"), comment = c(ORCID = "0000-0001-7146-8135")),
-    person("Alex M", "Chubaty", email = "alex.chubaty@gmail.com",
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6914-8316")),
     person("Her Majesty the Queen in Right of Canada, as represented by the Minister of Natural Resources Canada",
     role = "cph")
     )
+Depends:
+    R (>= 3.5)
+Imports:
+    diagram,
+    CircStats
+Suggests:
+    animation,
+    quickPlot
 Encoding: UTF-8
 Language: en-CA
 License: GPL-3
 VignetteBuilder: knitr, rmarkdown
-BugReports: https://github.com/PredictiveEcology/SpaDES_examples/issues
+BugReports: https://github.com/PredictiveEcology/reproducible/issues
 ByteCompile: yes
-
+RoxygenNote: 7.0.2
