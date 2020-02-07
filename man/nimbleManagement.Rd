@@ -11,6 +11,7 @@ nimbleManagement(
   nams = c("Problem", "Data", "Models", "Analyses", "Forecast", "Assessment",
     "Decisions"),
   cols = "RdYlBu",
+  box.scale = 10,
   ...
 )
 }
@@ -41,4 +42,11 @@ for (i in 0:N) {
   nimbleManagement(N, cols = "Set2", allToAll = TRUE, levels = i)
   dev.off()
 }
+
+# More linear
+N <- 7; nimbleManagement(7, cols = "Set2", allToAll = TRUE, 
+                         pos = cbind(1:N/(N*1.1), N:1/(N*2) + 0.2), 
+                         levels = 0, curve = -0.5, 
+                         box.scale = 20, arr.pos = 0.5, 
+                         segment.from = 0, segment.to = 1)
 }

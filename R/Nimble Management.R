@@ -48,9 +48,16 @@ ptsOnCirc <- function(x, r = 1) {
 #'   nimbleManagement(N, cols = "Set2", allToAll = TRUE, levels = i)
 #'   dev.off()
 #' }
+#' 
+#' # More linear
+#' N <- 7; nimbleManagement(7, cols = "Set2", allToAll = TRUE, 
+#'                          pos = cbind(1:N/(N*1.1), N:1/(N*2) + 0.2), 
+#'                          levels = 0, curve = -0.5, 
+#'                          box.scale = 20, arr.pos = 0.5, 
+#'                          segment.from = 0, segment.to = 1)
 nimbleManagement <- function(N, allToAll = FALSE, levels = N,
                              nams = c("Problem", "Data", "Models", "Analyses", "Forecast", "Assessment", "Decisions"),
-                             cols = "RdYlBu", ...) {
+                             cols = "RdYlBu", box.scale = 10, ...) {
   if (isTRUE(cols %in% rownames(RColorBrewer::brewer.pal.info)))
     cols <- RColorBrewer::brewer.pal(N, name = cols)
   cols1 <- cols
@@ -58,8 +65,13 @@ nimbleManagement <- function(N, allToAll = FALSE, levels = N,
   odd <- seq(1, N, by = 2)
   even <- seq(2, N, by = 2)
   a1 <- c(rev(even), odd )
-  a2 <- c(odd , rev(even))
-  a2 <- order(a2)
+  dots <- list(...)
+  if (is.null(dots$pos)) {
+    a2 <- c(odd , rev(even))
+    a2 <- order(a2)
+  } else {
+    a2 <- seq(1, N)
+  }
   if (length(nams) != N)
     nams <- unlist(lapply(LETTERS[1:N][a2], 
                           function(x) paste0(rep(x, 3), 
@@ -105,17 +117,17 @@ nimbleManagement <- function(N, allToAll = FALSE, levels = N,
     N
     col[] <- rep(cols1, each = N)
     col <- col[,a2]
+    
     #png(filename = paste0("plot", m, ".png"))
     defaults <- list(pos = (ptsOnCirc(N, r = 0.3) + 0.5)[a2,], 
                      curve = curves, name = nams, 
                      box.lwd = 2, box.cex = 1, cex.txt = 0.6, 
                      arr.lcol = col, arr.col = col, arr.pos = 0.7,
-                     box.size = nchar(nams)/N/10, box.col = cols1[a2],
+                     box.size = nchar(nams)/N/box.scale, box.col = cols1[a2],
                      arr.type = "curved", lwd = 3, box.type = "ellipse",
-                     box.prop = 1/nchar(nams)*2.5, #main = "plotmat", 
+                     box.prop = 1/nchar(nams)*box.scale/(box.scale^0.65), #main = "plotmat", 
                      arr.len = 0.8,
                      segment.from = 0.2, segment.to = 0.8)
-    dots <- list(...)
     defaults[names(dots)] <- dots
     do.call(plotmat, append(list(M1), defaults))
     #dev.off()
