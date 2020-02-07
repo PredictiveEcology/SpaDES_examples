@@ -59,7 +59,7 @@ ptsOnCirc <- function(x, r) {
         r*sin(rad(360/N * x + (360/N/2))))
 }
 
-nams <- c("Problem", "Data", "Analysis", "Forecast", "Risk", "Decisions")
+nams <- c("Problem", "Data", "Analysis", "Forecast", "Risk", "Decisions")[a2]
 
 N <- 6
 M  <- matrix(nrow = N, ncol = N, byrow = TRUE, data = 0)
@@ -74,7 +74,7 @@ a2 <- order(a2)
 
 b <- ""
 library(animation)
-saveGIF({
+saveGIF(movie.name = "Nimble Management.gif", {
 for (m in 1:6) {
   vec <- 1:N
   v1 <- cbind(vec, c(vec[-1], vec[1]))
