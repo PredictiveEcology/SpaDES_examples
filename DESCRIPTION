@@ -15,8 +15,9 @@ Authors@R: c(
 Depends:
     R (>= 3.5)
 Imports:
+    CircStats,
     diagram,
-    CircStats
+    fpCompare
 Suggests:
     animation,
     quickPlot

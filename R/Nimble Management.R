@@ -1,14 +1,26 @@
 
 #' @importFrom CircStats rad
-ptsOnCirc <- function(x, r) {
+#' @importFrom fpCompare %==%
+ptsOnCirc <- function(x, r = 1) {
   N <- length(x)
   if (N==1) {
     x <- rev(seq(x))
     N <- length(x)
     x <- c(x[N], x[-N])
   }
-  cbind(r*cos(rad(360/N * x + (360/N/2))),
-        r*sin(rad(360/N * x + (360/N/2))))
+  for (i in 1:2) {
+    aa <- if (N %% 2 == 0) {
+      cbind(r*cos(rad(360/N * x + (360/N/2))),
+            r*sin(rad(360/N * x + (360/N/2))))
+    } else {
+      cbind(r*sin(rad(360/N * x + (360/N/2)  )),
+            -r*cos(rad(360/N * x + (360/N/2)  ))); 
+    }
+    addToX <- N - which(aa[,2] %==% r) + 1
+    x <- x + addToX
+  }
+  return(aa)
+  
 }
 
 #' Nimble management visualization
@@ -17,9 +29,9 @@ ptsOnCirc <- function(x, r) {
 #' @examples 
 #' if (require(animation) && require(quickPlot)) {
 #' dev(width = 11, height = 11)
-#' nimbleManagement(7, cols = "BrBG", allToAll = TRUE)
+#' nimbleManagement(7, cols = "Set2", allToAll = TRUE)
 #' saveGIF(movie.name = "Nimble Management.gif", 
-#'         nimbleManagement(7, cols = "Accent", allToAll = TRUE),
+#'         nimbleManagement(7, cols = "Set2", allToAll = TRUE),
 #'         ani.options = ani.options(
 #'           ani.height = 1200, 
 #'           ani.width = 1200, ani.res = 200), {
@@ -27,7 +39,7 @@ ptsOnCirc <- function(x, r) {
 #'           })
 #' }
 nimbleManagement <- function(N, allToAll = FALSE, 
-                             nams = c("Problem", "Data", "Models", "Analyses", "Forecast", "Risk", "Decisions"),
+                             nams = c("Problem", "Data", "Models", "Analyses", "Forecast", "Assessment", "Decisions"),
                              cols = "RdYlBu") {
   if (isTRUE(cols %in% rownames(RColorBrewer::brewer.pal.info)))
     cols <- RColorBrewer::brewer.pal(N, name = cols)
@@ -84,12 +96,12 @@ nimbleManagement <- function(N, allToAll = FALSE,
     col[] <- rep(cols1, each = N)
     col <- col[,a2]
     #png(filename = paste0("plot", m, ".png"))
-    pp <- plotmat(M1, pos = (ptsOnCirc(N, r = 0.4) + 0.5)[a2,], 
+    pp <- plotmat(M1, pos = (ptsOnCirc(N, r = 0.3) + 0.5)[a2,], 
                   curve = curves, name = nams, 
-                  box.lwd = 2, box.cex = 2, cex.txt = 0.8, 
+                  box.lwd = 2, box.cex = 1, cex.txt = 0.6, 
                   arr.lcol = col, arr.col = col, arr.pos = 0.7,
                   box.size = nchar(nams)/N/10, box.col = cols1[a2],
-                  arr.type = "curved", lwd = 7, box.type = "ellipse",
+                  arr.type = "curved", lwd = 3, box.type = "ellipse",
                   box.prop = 1/nchar(nams)*2.5, #main = "plotmat", 
                   arr.len = 0.8,
                   segment.from = 0.2, segment.to = 0.8)

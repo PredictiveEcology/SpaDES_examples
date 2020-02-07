@@ -7,7 +7,8 @@
 nimbleManagement(
   N,
   allToAll = FALSE,
-  nams = c("Problem", "Data", "Models", "Analyses", "Forecast", "Risk", "Decisions"),
+  nams = c("Problem", "Data", "Models", "Analyses", "Forecast", "Risk Assessment",
+    "Decisions"),
   cols = "RdYlBu"
 )
 }
@@ -17,7 +18,7 @@ Nimble management visualization
 \examples{
 if (require(animation) && require(quickPlot)) {
 dev(width = 11, height = 11)
-nimbleManagement(7, cols = "BrBG", allToAll = TRUE)
+nimbleManagement(7, cols = "Set2", allToAll = TRUE)
 saveGIF(movie.name = "Nimble Management.gif", 
         nimbleManagement(7, cols = "Accent", allToAll = TRUE),
         ani.options = ani.options(

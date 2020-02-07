@@ -2,3 +2,4 @@
 
 importFrom(CircStats,rad)
 importFrom(diagram,plotmat)
+importFrom(fpCompare,"%==%")
