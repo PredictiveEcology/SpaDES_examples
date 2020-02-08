@@ -26,6 +26,7 @@ ptsOnCirc <- function(x, r = 1) {
 #' Nimble management visualization
 #' @importFrom diagram plotmat
 #' @rdname nimbleManagement
+#' @export
 #' @param ... passed to \code{diagram::plotmat}
 #' @examples 
 #' if (require(animation) && require(quickPlot)) {
